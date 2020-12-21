@@ -12,4 +12,10 @@ export class AppareilComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  appareilName: string = "Machine à laver";
+  appareilStatus: string = 'éteint';
+
+  getStatus() {
+    return this.appareilStatus;
+  }
 }
