@@ -6,5 +6,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mon-projet-angular';
+  isAuth: boolean = false;
+
+  constructor() {
+    setTimeout(
+      () => {
+        this.isAuth = true;
+      }, 4000
+    );
+  }
+
+  getActif() {
+    if (this.isAuth) {
+      return 'btn btn-success';
+    } else {
+      return 'btn btn-secondary';
+    }
+  }
+
+  onAllumer() {
+    console.log('On allume tout !');
+  }
 }

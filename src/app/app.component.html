@@ -1,5 +1,4 @@
 <div>
-  <h1>Bienvenue sur {{ title }}</h1>
   <app-mon-premier></app-mon-premier>
 </div>
 <div class="container">
@@ -13,4 +12,5 @@
       </ul>
     </div>
   </div>
+  <button [class]="getActif()" [disabled]="!isAuth" (click)="onAllumer()">Tout allumer</button>
 </div>
