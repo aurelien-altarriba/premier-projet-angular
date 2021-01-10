@@ -12,6 +12,7 @@ export class AppareilComponent implements OnInit {
     this.appareilName = "Indéfini";
     this.appareilStatus = "Inconnu";
     this.index = -1;
+    this.id = 0;
   }
 
   ngOnInit(): void {
@@ -20,6 +21,7 @@ export class AppareilComponent implements OnInit {
   @Input() appareilName: string;
   @Input() appareilStatus: string;
   @Input() index: number;
+  @Input() id: number;
 
   getStatus() {
     return this.appareilStatus;
