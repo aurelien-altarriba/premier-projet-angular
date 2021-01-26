@@ -1,6 +1,11 @@
 import { Subject } from 'rxjs/Subject';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class AppareilService {
+  constructor(private httpClient: HttpClient) { }
+
   appareilSubject = new Subject<any[]>();
 
   private appareils = [
@@ -8,26 +13,6 @@ export class AppareilService {
       id: 1,
       name: 'Machine à laver',
       status: 'éteint'
-    },
-    {
-      id: 2,
-      name: 'Frigo',
-      status: 'allumé'
-    },
-    {
-      id: 2,
-      name: 'Ordinateur',
-      status: 'éteint'
-    },
-    {
-      id: 3,
-      name: 'Alarme',
-      status: 'éteint'
-    },
-    {
-      id: 4,
-      name: 'Damien',
-      status: 'allumé'
     }
   ];
 
@@ -79,5 +64,32 @@ export class AppareilService {
     appareilObject.id = this.appareils.length - 1;
     this.appareils.push(appareilObject);
     this.emitAppareilSubject();
+  }
+
+  saveAppareilsToServer() {
+    this.httpClient
+      .put('https://http-client-demo-da117-default-rtdb.firebaseio.com/appareils.json', this.appareils)
+      .subscribe(
+        () => {
+          console.log('Enregistrement terminé!');
+        },
+        (error) => {
+          console.log('Erreur de sauvegarde: ' + error);
+        }
+      );
+  }
+
+  getAppareilsFromServer() {
+    this.httpClient
+      .get<any[]>('https://http-client-demo-da117-default-rtdb.firebaseio.com/appareils.json')
+      .subscribe(
+        (response) => {
+          this.appareils = response;
+          this.emitAppareilSubject();
+        },
+        (error) => {
+          console.log('erreur: ' + error);
+        }
+      );
   }
 }
